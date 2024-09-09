@@ -4,12 +4,8 @@ import { useState } from "react";
 import { FaTimesCircle } from "react-icons/fa";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { TempTypeInput, TypeInput } from "../../Components/InputComponents/TypeInput";
-import vip from "@/public/vip.svg";
-import {
-  SelectInput,
-  TempSelectInput,
-} from "../../Components/InputComponents/SelectInput";
+import { TempTypeInput } from "../../Components/InputComponents/TypeInput";
+import { TempSelectInput } from "../../Components/InputComponents/SelectInput";
 import {
   setalternativePhoneR,
   setcityR,
@@ -33,18 +29,18 @@ import { useDispatch } from "react-redux";
 import { CountryStateCity } from "../../Components/functions/CountryStateCity";
 
 export default function Info() {
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  let chauffeur = useSelector((state: RootState) => state.chauffeur);
-  const [files, setFiles] = useState<any>(chauffeur.chauffeurImage);
+  const chauffeur = useSelector((state: RootState) => state.chauffeur);
+  const [files, setFiles] = useState<File>(chauffeur.chauffeurImage);
   useEffect(() => {
-    setFiles(chauffeur?.chauffeurImage); 
+    setFiles(chauffeur?.chauffeurImage);
   }, [chauffeur.chauffeurImage[0]]);
-  const onDrop = useCallback((acceptedFiles: any) => {
+  const onDrop = useCallback((acceptedFiles: File | Array<object> | string) => {
     const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
     const allowedTypes = ["image/jpeg", "image/png"]; // Allowed MIME types for JPG and PNG
 
-    const filteredFiles = acceptedFiles.filter((file: any) => {
+    const filteredFiles = acceptedFiles.filter((file: File | Blob) => {
       if (!allowedTypes.includes(file.type)) {
         alert(
           `File ${file.name} is not a supported format. Please upload JPG or PNG files.`
@@ -96,7 +92,7 @@ export default function Info() {
     setFiles([]);
   }
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
   });
@@ -104,7 +100,7 @@ export default function Info() {
     dispatch(setchauffeurImageR(files));
   }, [files]);
 
-  let { countries, states, cities } = CountryStateCity(
+  const { countries, states, cities } = CountryStateCity(
     chauffeur.country,
     chauffeur.state
   );

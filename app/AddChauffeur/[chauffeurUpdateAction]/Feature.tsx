@@ -1,7 +1,6 @@
 "use client";
-import { TempTypeInput, TypeInput } from "../../Components/InputComponents/TypeInput";
+import { TempTypeInput } from "../../Components/InputComponents/TypeInput";
 import {
-  SelectInput,
   TempSelectInput,
 } from "../../Components/InputComponents/SelectInput";
 import {
@@ -18,8 +17,8 @@ import { RootState } from "@/app/store";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Feature() {
-  let chauffeur = useSelector((state: RootState) => state.chauffeur);
-  let dispatch = useDispatch();
+  const chauffeur = useSelector((state: RootState) => state.chauffeur);
+  const dispatch = useDispatch();
   console.log(chauffeur?.emergencyContactName);
   return (
     <div className="w-full h-fit  ">

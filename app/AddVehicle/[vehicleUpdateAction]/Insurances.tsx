@@ -1,5 +1,5 @@
 "use client";
-import { TypeInput, TempTypeInput } from "../../Components/InputComponents/TypeInput";
+import { TempTypeInput } from "../../Components/InputComponents/TypeInput";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import {
@@ -9,7 +9,7 @@ import {
 } from "@/app/store/Vehicle";
 
 export default function Insurances() {
-  let vehicle = useSelector((state: RootState) => state.Vehicle);
+  const vehicle = useSelector((state: RootState) => state.Vehicle);
 
   return (
     <div className="w-full h-fit  ">
