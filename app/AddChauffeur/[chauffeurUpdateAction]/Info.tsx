@@ -32,15 +32,15 @@ export default function Info() {
   const dispatch = useDispatch();
 
   const chauffeur = useSelector((state: RootState) => state.chauffeur);
-  const [files, setFiles] = useState<File>(chauffeur.chauffeurImage);
+  const [files, setFiles] = useState<any>(chauffeur.chauffeurImage);
   useEffect(() => {
     setFiles(chauffeur?.chauffeurImage);
   }, [chauffeur.chauffeurImage[0]]);
-  const onDrop = useCallback((acceptedFiles: File | Array<object> | string) => {
+  const onDrop = useCallback((acceptedFiles: any) => {
     const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
     const allowedTypes = ["image/jpeg", "image/png"]; // Allowed MIME types for JPG and PNG
 
-    const filteredFiles = acceptedFiles.filter((file: File | Blob) => {
+    const filteredFiles = acceptedFiles.filter((file: any) => {
       if (!allowedTypes.includes(file.type)) {
         alert(
           `File ${file.name} is not a supported format. Please upload JPG or PNG files.`
